@@ -308,13 +308,7 @@ class DockerCompose:
                     deployment_spec['restartPolicy'] = {'always': 'Always'}[value]
 
                 def logging():
-                    pass  # TODO
-                    # cmd.extend(['--log-driver', value.get('driver', 'json-file'), '\\\n'])
-                    # log_opts = value['options']
-                    # if log_opts:
-                    #     for k, v in log_opts.items():
-                    #         if v is not None:
-                    #             cmd.extend(['--log-opt', '{}={}'.format(k, v), '\\\n'])
+                    pass  # unsupported
 
                 def mem_limit():
                     container['resources'] = {'limits': {'memory': value.replace('m', 'Mi')}}
