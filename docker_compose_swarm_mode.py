@@ -327,7 +327,7 @@ class DockerCompose:
                     container['ports'] = []
                     for port in value:
                         port_int = int(port)
-                        service_result['spec']['ports'].append({'port': port_int, 'targetPort': port_int})
+                        service_result['spec']['ports'].append(OrderedDict([('port', port_int), ('targetPort', port_int), ('name', str(port_int))]))
                         container['ports'].append({'containerPort': port_int})
 
                 def container_name():
@@ -392,7 +392,7 @@ class DockerCompose:
                                     deployment_spec['nodeSelector'] = OrderedDict()
 
                                 constraint = env.split(':', 2)[1]
-                                selector = 'TODO'
+                                selector = 'FIX_ME'
 
                                 if constraint.startswith('node.hostname=='):
                                     selector = 'kubernetes.io/hostname'
@@ -411,7 +411,7 @@ class DockerCompose:
                                 container['env'].append(OrderedDict([('name', k), ('value', v)]))
 
                 def replicas():
-                    deployment_spec['replicas'] = int(value)
+                    deployment_result['spec']['replicas'] = int(value)
 
                 def unsupported():
                     print >> sys.stderr, ('WARNING: unsupported parameter {}'.format(parameter))
