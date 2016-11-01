@@ -191,7 +191,7 @@ class DockerCompose:
                     cmd.extend(['--replicas', value, '\\\n'])
 
                 def unsupported():
-                    print('WARNING: unsupported parameter {}'.format(parameter))
+                    print >> sys.stderr, ('WARNING: unsupported parameter {}'.format(parameter))
 
                 locals().get(parameter, unsupported)()
 
@@ -253,10 +253,10 @@ class DockerCompose:
             return '{}-{}'.format(self.project, value) if self.project else value
 
         if self.networks:
-            print('WARNING: unsupported parameter "networks"')
+            print >> sys.stderr, ('WARNING: unsupported parameter "networks"')
 
         for volume in self.volumes:
-            print('WARNING: unsupported parameter "volumes"')
+            print >> sys.stderr, ('WARNING: unsupported parameter "volumes"')
 
         for service in self.filtered_services:
             service_config = self.services[service]
@@ -410,7 +410,7 @@ class DockerCompose:
                     deployment_spec['replicas'] = int(value)
 
                 def unsupported():
-                    print('WARNING: unsupported parameter {}'.format(parameter))
+                    print >> sys.stderr, ('WARNING: unsupported parameter {}'.format(parameter))
 
                 locals().get(parameter, unsupported)()
 
