@@ -57,7 +57,7 @@ class DockerCompose:
             elif isinstance(a[key], list) and isinstance(b[key], dict):
                 a[key][:0] = list({'{}={}'.format(k, v) for k, v in b[key].items()})
             else:
-                raise('Unknown type of "{}" value (should be either list or dictionary)'.format(key))
+                raise ('Unknown type of "{}" value (should be either list or dictionary)'.format(key))
 
     @staticmethod
     def call(cmd, ignore_return_code=False):
@@ -171,9 +171,9 @@ class DockerCompose:
                             src = src.replace('.', self.compose_base_dir, 1)
 
                         if src.startswith('/'):
-                            cmd.extend(['--mount', 'type=bind,src={},dst={},readonly={}'.format(src, dst,readonly), '\\\n'])
+                            cmd.extend(['--mount', 'type=bind,src={},dst={},readonly={}'.format(src, dst, readonly), '\\\n'])
                         else:
-                            cmd.extend(['--mount', 'src={},dst={},readonly={}'.format(self.project_prefix(src), dst,readonly), '\\\n'])
+                            cmd.extend(['--mount', 'src={},dst={},readonly={}'.format(self.project_prefix(src), dst, readonly), '\\\n'])
 
                 def environment():
                     if isinstance(value, dict):
@@ -376,7 +376,8 @@ class DockerCompose:
                         else:
                             volume_name = src.replace('_', '-')
                             container['volumeMounts'].append(OrderedDict([('name', volume_name), ('mountPath', dst)]))
-                            deployment_spec['volumes'].append(OrderedDict([('name', volume_name), ('hostPath', {'path': '/volumes/' + project_prefix(volume_name)})]))
+                            deployment_spec['volumes'].append(
+                                OrderedDict([('name', volume_name), ('hostPath', {'path': '/volumes/' + project_prefix(volume_name)})]))
                             # TODO readonly
 
                 def environment():
