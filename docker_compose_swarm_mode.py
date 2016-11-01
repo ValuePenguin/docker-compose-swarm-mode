@@ -380,8 +380,8 @@ class DockerCompose:
                             # TODO readonly
 
                 def environment():
-                    container['env'] = []
                     if isinstance(value, dict):
+                        container['env'] = []
                         for k, v in value.items():
                             container['env'].append(OrderedDict([('name', k), ('value', v)]))
                     else:
@@ -403,6 +403,9 @@ class DockerCompose:
 
                                 deployment_spec['nodeSelector'][selector] = constraint
                             else:
+                                if 'env' not in container:
+                                    container['env'] = []
+
                                 [k, v] = env.split('=')
                                 container['env'].append(OrderedDict([('name', k), ('value', v)]))
 
