@@ -84,7 +84,7 @@ class DockerCompose:
     def up(self):
         for network in self.networks:
             if not self.is_external_network(network):
-                cmd = '[ "`docker network ls | awk \'{{print $2}}\' | egrep \'^{0}$\'`" != "" ] || docker network create --driver overlay --opt encrypted {0}' \
+                cmd = '[ "`docker network ls | awk \'{{print $2}}\' | egrep \'^{0}$\'`" != "" ] || docker network create --driver overlay --subnet 192.168.1.0/24 {0}' \
                     .format(self.project_prefix(network))
                 self.call(cmd)
 
